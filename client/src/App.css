@@ -1,0 +1,772 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --border-color: #e5e7eb;
+  --accent-color: #000000;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  padding: 2.5rem;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+}
+
+header h1 {
+  font-size: 3.5rem;
+  margin: 0 0 0.25rem 0;
+  letter-spacing: -2px;
+  font-weight: 800;
+}
+
+header p {
+  color: #000000;
+  margin: 0 0 2.5rem 0;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transform: rotate(-20deg);
+  margin: 6rem 0;
+}
+
+input {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 1.25rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 15px rgba(0,0,0,0.05);
+}
+
+button {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  border: none;
+  padding: 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.message {
+  margin-top: 6rem;
+  padding: 1.25rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+/* Diagonal Layout & Columns */
+.app-layout {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.diagonal-brand {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1920px;
+  height: 1080px; /* Reference height */
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.diagonal-columns {
+  position: absolute;
+  top: 1150px;
+  left: -620px; /* Shifted everything slightly to the left */
+  display: flex;
+  gap: 36px;
+  transform: rotate(-90deg);
+  transform-origin: top left;
+}
+
+.column {
+  width: 68px;
+  border-radius: 0; /* sharp geometric flat ends as in the 1975 poster */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.column.col-0 {
+  display: none;
+}
+
+.column.col-1 {
+  height: 1900px; /* Adjusted first yellow column to 1900px */
+  background-color: #ffd166; /* Yellow */
+}
+
+.column.col-2 {
+  height: 2200px;
+  background-color: #ef476f; /* Pink/Red */
+}
+
+.column.col-3 {
+  height: 2000px;
+  background-color: #06d6a0; /* Mint Green */
+}
+
+.column.col-4 {
+  height: 1650px;
+  background-color: #118ab2; /* Blue */
+}
+
+.column.col-5 {
+  height: 2200px;
+  background-color: #ffd166; /* Yellow */
+}
+
+.column.col-6 {
+  height: 1000px; /* Set to exactly 1000px */
+  background-color: #118ab2; /* Swapped with col-8 (Blue instead of Red) */
+  position: relative;
+  overflow: visible;
+}
+
+.column.col-7 {
+  height: 1150px; /* Aligned base height to 1150px for symmetry */
+  background-color: #06d6a0; /* Mint Green */
+  position: relative;
+  overflow: visible;
+  transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto; /* enable click on the green column */
+}
+
+.diagonal-input-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) rotate(90deg);
+  transform-origin: center center;
+  height: 5.2rem;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.045); /* Subtle premium grey background behind input */
+  border-radius: 8px;
+  padding: 0 28px;
+  box-sizing: border-box;
+  overflow: hidden; /* Snugly contains all inner elements, placeholders, and flying text */
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), bottom 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.diagonal-input {
+  width: 100%;
+  height: 100%;
+  font-size: 4.8rem;
+  font-weight: 700;
+  color: #000000 !important;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  letter-spacing: -4px;
+  white-space: nowrap;
+  font-family: 'Inter', -apple-system, sans-serif;
+  text-align: left;
+  cursor: text;
+  pointer-events: auto; /* enable click and text selection through the brand layout overlay */
+  transform: translateX(-18px);
+}
+
+.diagonal-input::placeholder {
+  color: rgba(0, 0, 0, 0.125); /* Elegant retro grey matching the disabled button exactly */
+  font-weight: 700;
+  text-transform: none;
+}
+
+.diagonal-input:focus,
+.diagonal-input:active {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.diagonal-input:disabled {
+  background: transparent !important;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  opacity: 0.6 !important; /* Slightly lower opacity to indicate read-only lock state */
+  -webkit-opacity: 0.6 !important;
+  cursor: not-allowed;
+}
+
+/* Remove default browser autocomplete/autofill yellow and white highlight box backgrounds */
+.diagonal-input:-webkit-autofill,
+.diagonal-input:-webkit-autofill:hover, 
+.diagonal-input:-webkit-autofill:focus,
+.diagonal-input:-webkit-autofill:active {
+  -webkit-text-fill-color: #000000 !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+  background-color: transparent !important;
+}
+
+.column.col-8 {
+  height: 1100px; /* Adjusted to 1100px to balance the stripe spacing */
+  background-color: #ef476f; /* Swapped with col-6 (Red instead of Blue) */
+  position: relative;
+  overflow: visible;
+  transition: height 0.25s linear;
+  pointer-events: auto; /* enable click on the red column */
+  z-index: 5; /* Ensure launching button stacks on top of neighboring columns */
+}
+
+.column.col-8.clickable-row {
+  cursor: pointer;
+}
+
+.diagonal-download-btn {
+  position: absolute;
+  bottom: -95px; /* Shifted base position 10px closer to the red column */
+  left: 50%;
+  transform: translateX(-50%) rotate(90deg);
+  transform-origin: center center;
+  font-size: 4.8rem;
+  font-weight: 700;
+  color: #000000 !important;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  letter-spacing: -4px;
+  white-space: nowrap;
+  font-family: 'Inter', -apple-system, sans-serif;
+  z-index: 10;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: color 0.2s ease, bottom 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+  width: max-content !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.diagonal-download-btn.valid-active {
+  bottom: -205px; /* Shifted 10px closer to the red column */
+  transition: color 0.2s ease, bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.diagonal-download-btn.invalid-active {
+  bottom: -225px; /* Shifted 10px closer to the red column */
+  transition: color 0.2s ease, bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.diagonal-download-btn:hover:not(:disabled) {
+  color: #ef476f !important;
+}
+
+/* Red column hover overrides to turn button text and dot red */
+.column.col-8.clickable-row:hover .diagonal-download-btn,
+.column.col-8.clickable-row:hover .diagonal-download-btn .download-dot {
+  color: #ef476f !important;
+}
+
+.diagonal-download-btn:focus,
+.diagonal-download-btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  transform: translateX(-50%) rotate(90deg) !important;
+}
+
+.diagonal-download-btn:disabled {
+  color: rgba(0, 0, 0, 0.25) !important;
+  opacity: 1 !important; /* Force opacity to stay 1 so the dot remains fully solid black */
+  -webkit-opacity: 1 !important;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.diagonal-download-btn.launched {
+  animation: launch-projectile 1.5s cubic-bezier(0.15, 1, 0.3, 1) forwards !important;
+  pointer-events: none !important;
+}
+
+.column.col-8.spring-launch {
+  animation: spring-recoil 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+}
+
+@keyframes spring-recoil {
+  0% {
+    height: 1100px;
+  }
+  45% {
+    /* windup/compress state (slowed down for maximum build-up) */
+    height: 800px;
+  }
+  55% {
+    /* spring violent release (explosive) */
+    height: 1200px;
+  }
+  70% {
+    /* recoil bounce back */
+    height: 1050px;
+  }
+  85% {
+    height: 1120px;
+  }
+  100% {
+    height: 1100px;
+  }
+}
+
+@keyframes launch-projectile {
+  0% {
+    bottom: -215px;
+    opacity: 1;
+  }
+  45% {
+    /* pulled inward with slight spacing (slowed down pullback) */
+    bottom: -80px;
+    opacity: 1;
+  }
+  52% {
+    /* violent launch shoots out */
+    bottom: -600px;
+    opacity: 1;
+  }
+  100% {
+    /* flew off screen */
+    bottom: -3000px;
+    opacity: 0;
+  }
+}
+
+.download-text-label {
+  display: inline-block;
+  opacity: 0;
+  max-width: 0;
+  overflow: hidden;
+  vertical-align: middle;
+  padding-right: 8px; /* Restores spacing for trailing letters cut off by overflow: hidden */
+  transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1), max-width 0.35s cubic-bezier(0.25, 1, 0.5, 1), margin-right 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.diagonal-download-btn.valid-active .download-text-label {
+  opacity: 1;
+  max-width: 300px;
+  margin-right: 12px; /* Smoothly slides bullet dot away from the text */
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), margin-right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.diagonal-download-btn.invalid-active .download-text-label {
+  opacity: 1;
+  max-width: 300px;
+  margin-right: 12px;
+  color: #ef476f !important;
+  padding-right: 6px; /* Prevents letters from clipping due to tight letter-spacing (tuned 10px closer to the dot) */
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), margin-right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.diagonal-download-btn.invalid-active .download-dot {
+  color: #ef476f !important;
+}
+
+.diagonal-download-btn.launched .download-text-label {
+  display: none !important;
+}
+
+.column.col-8.mini-bounce {
+  animation: mini-pop 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes mini-pop {
+  0% {
+    height: 1100px;
+  }
+  30% {
+    height: 1020px; /* Quick compression pop */
+  }
+  60% {
+    height: 1160px; /* Spring release pop */
+  }
+  100% {
+    height: 1100px; /* Settle back to baseline */
+  }
+}
+
+.diagonal-download-btn.launched .download-dot {
+  animation: none !important;
+  color: #ef476f !important; /* Force red during launch */
+}
+
+.diagonal-download-btn:hover:not(:disabled) .download-dot {
+  color: #ef476f !important; /* Turn red on hover */
+}
+
+.download-dot {
+  margin-right: 0px;
+  display: inline-block;
+  color: #000000 !important; /* Force fully solid black by default */
+}
+
+.diagonal-percentage {
+  position: absolute;
+  bottom: 100px; /* Shifted higher by 50px */
+  left: 50%; /* Center aligned within the column width */
+  font-size: 3.8rem; /* Decreased slightly for visually balanced proportion */
+  font-weight: 700;
+  color: #000000;
+  font-family: 'Inter', -apple-system, sans-serif;
+  letter-spacing: -4px; /* Exact same letter spacing */
+  transform: translateX(-50%) rotate(90deg); /* Exact same transform alignment */
+  transform-origin: center center;
+  opacity: 0;
+  animation: fade-in-percentage 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  z-index: 15;
+  pointer-events: none;
+}
+
+@keyframes fade-in-percentage {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) rotate(90deg) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) rotate(90deg) scale(1);
+  }
+}
+
+.download-dot.active-blink {
+  animation: pulse-red-dot 1.2s infinite ease-in-out;
+}
+
+@keyframes pulse-red-dot {
+  0% {
+    color: #000000;
+  }
+  50% {
+    color: #ef476f; /* Same as the red column background color */
+  }
+  100% {
+    color: #000000;
+  }
+}
+
+.column.col-9 {
+  height: 1800px;
+  background-color: #ffd166; /* Yellow */
+}
+
+.column.col-10 {
+  height: 1300px;
+  background-color: #ef476f; /* Pink/Red */
+}
+
+.column.col-11 {
+  height: 1700px;
+  background-color: #06d6a0; /* Mint Green */
+}
+
+.column.col-12 {
+  height: 1950px; /* Slightly increased from 1700px */
+  background-color: #118ab2; /* Blue */
+}
+
+.column.col-13 {
+  height: 1550px;
+  background-color: #ffd166; /* Yellow */
+}
+
+.column.col-14 {
+  display: none;
+}
+
+.column.col-15 {
+  display: none;
+}
+
+.column.col-16 {
+  display: none;
+}
+
+.diagonal-logo {
+  position: absolute;
+  bottom: -190px; /* Shifted 10px closer to the blue column */
+  left: 50%;
+  transform: translateX(-50%) rotate(90deg);
+  transform-origin: center center;
+  font-size: 4.8rem;
+  font-weight: 700;
+  color: #000000 !important;
+  margin: 0;
+  letter-spacing: -4px;
+  white-space: nowrap;
+  font-family: 'Inter', -apple-system, sans-serif;
+  z-index: 10;
+}
+
+@media (max-width: 480px) {
+  .column.col-0 { display: none !important; }
+  .column.col-1 { height: 1425px !important; }
+  .column.col-2 { height: 1650px !important; }
+  .column.col-3 { height: 1500px !important; }
+  .column.col-4 { height: 1238px !important; }
+  .column.col-5 { height: 1650px !important; }
+  /* col-6 (title), col-7 (paste url), and col-8 (download) keep their original heights */
+  .column.col-9 { height: 1600px !important; }
+  .column.col-10 { height: 1500px !important; }
+  .column.col-11 { height: 1600px !important; }
+  .column.col-12 { height: 1800px !important; }
+  .column.col-13 { height: 1650px !important; }
+  .column.col-14 { display: none !important; }
+  .column.col-15 { display: none !important; }
+  .column.col-16 { display: none !important; }
+  .diagonal-logo { bottom: -165px !important; } /* Shifted another 5px to the right on mobile */
+  .diagonal-columns {
+    left: -400px !important;
+    top: 1150px !important;
+  }
+  .diagonal-download-btn:not(.launched) {
+    bottom: -95px !important; /* Shifted 15px away from the red column */
+  }
+  .diagonal-download-btn.valid-active:not(.launched) {
+    bottom: -180px !important; /* Shifted 15px away from the red column */
+  }
+  .diagonal-download-btn.invalid-active:not(.launched) {
+    bottom: -225px !important; /* Shifted 15px away from the red column */
+  }
+  .diagonal-input-container {
+    padding-left: 28px !important;
+    padding-right: 10px !important; /* Asymmetrical padding allowing text to go much further right */
+  }
+  .diagonal-input {
+    width: calc(100% + 18px) !important; /* Reclaims the translateX(-18px) shift on the right side */
+  }
+  @keyframes spring-recoil {
+    0% {
+      height: 1100px;
+    }
+    45% {
+      /* windup/compress state - reduced pullback on mobile for smoother visual fit */
+      height: 950px;
+    }
+    55% {
+      /* spring violent release (explosive) */
+      height: 1200px;
+    }
+    70% {
+      /* settle back to regular height */
+      height: 1100px;
+    }
+    100% {
+      height: 1100px;
+    }
+  }
+}
+
+.diagonal-author {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 14px; /* Increased for a clearer visual footprint */
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.35); /* Soft, premium grey background blend */
+  letter-spacing: -0.8px; /* Snugs letters closer together to match the brand layout system */
+  z-index: 100;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .diagonal-author {
+    bottom: 10px;
+    font-size: 11px; /* Increased from 9px for better mobile readability */
+  }
+}
+
+.author-link {
+  color: inherit;
+  text-decoration: none;
+  pointer-events: auto;
+  transition: color 0.2s ease;
+}
+
+.author-link:hover {
+  color: #118ab2;
+}
+
+.column.col-7.clickable-row {
+  cursor: pointer;
+}
+
+.column.col-7.spring-launch {
+  animation: spring-recoil-green 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+}
+
+@keyframes spring-recoil-green {
+  0% {
+    height: var(--start-height);
+  }
+  45% {
+    /* windup/compress state (pull back smoothly from starting height) */
+    height: calc(var(--start-height) - 150px);
+  }
+  55% {
+    /* spring violent release */
+    height: 1250px;
+  }
+  70% {
+    /* recoil bounce back */
+    height: 1120px;
+  }
+  85% {
+    height: 1160px;
+  }
+  100% {
+    height: 1150px;
+  }
+}
+
+.diagonal-flying-text {
+  position: absolute;
+  left: 10px;
+  font-size: 4.8rem;
+  font-weight: 700;
+  color: #000000;
+  letter-spacing: -4px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  pointer-events: none;
+  white-space: nowrap;
+  opacity: 1;
+  z-index: 15;
+  transform: translateX(0);
+}
+
+.diagonal-flying-text.launched {
+  animation: launch-text-right 1.5s cubic-bezier(0.15, 1, 0.3, 1) forwards !important;
+}
+
+@keyframes launch-text-right {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  45% {
+    transform: translateX(8px); /* Finely tuned slightly right to achieve a beautiful visual sweet spot and avoid any overlap */
+    opacity: 1;
+  }
+  55% {
+    transform: translateX(2500px); /* Explosive release off screen */
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(3000px);
+    opacity: 0;
+  }
+}
+
+.diagonal-placeholder-overlay {
+  position: absolute;
+  left: 28px; /* Match the padding of the grey background container */
+  font-size: 4.8rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.125); /* Exact gray matching original placeholder color */
+  letter-spacing: -4px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1;
+  transform: translateX(-18px);
+  display: flex;
+  align-items: center;
+}
+
+.diagonal-placeholder-dynamic {
+  display: inline-block;
+  margin-left: 12px; /* Force visual spacing under tight letter-spacing */
+  animation: placeholder-fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes placeholder-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.diagonal-input-container.launched {
+  animation: launch-box-right 1.5s cubic-bezier(0.15, 1, 0.3, 1) forwards !important;
+  pointer-events: none !important;
+}
+
+@keyframes launch-box-right {
+  0% {
+    transform: translateX(-50%) rotate(90deg) translateX(0);
+    opacity: 1;
+  }
+  45% {
+    transform: translateX(-50%) rotate(90deg) translateX(8px);
+    opacity: 1;
+  }
+  55% {
+    transform: translateX(-50%) rotate(90deg) translateX(2500px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) rotate(90deg) translateX(3000px);
+    opacity: 0;
+  }
+}
