@@ -617,7 +617,7 @@ button:disabled {
   left: 50%;
   transform: translateX(-50%);
   font-family: 'Inter', -apple-system, sans-serif;
-  font-size: 14px; /* Increased for a clearer visual footprint */
+  font-size: 18px; /* Increased for better visibility */
   font-weight: 400;
   color: rgba(0, 0, 0, 0.35); /* Soft, premium grey background blend */
   letter-spacing: -0.8px; /* Snugs letters closer together to match the brand layout system */
@@ -629,7 +629,7 @@ button:disabled {
 @media (max-width: 480px) {
   .diagonal-author {
     bottom: 10px;
-    font-size: 11px; /* Increased from 9px for better mobile readability */
+    font-size: 14px; /* Increased for better mobile readability */
   }
 }
 

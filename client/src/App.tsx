@@ -135,7 +135,8 @@ function App() {
     const fetchTitle = async () => {
       try {
         const fullUrl = url.match(/^https?:\/\//) ? url : `https://${url}`;
-        const response = await fetch(`http://${window.location.hostname}:3001/api/info`, {
+        const apiBase = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:3001`;
+        const response = await fetch(`${apiBase}/api/info`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url: fullUrl })
@@ -220,7 +221,8 @@ function App() {
 
     try {
       const fullUrl = url.match(/^https?:\/\//) ? url : `https://${url}`;
-      const response = await fetch(`http://${window.location.hostname}:3001/api/download`, {
+      const apiBase = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:3001`;
+      const response = await fetch(`${apiBase}/api/download`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: fullUrl })
@@ -243,7 +245,7 @@ function App() {
         await new Promise((resolve) => setTimeout(resolve, 150));
 
         // 2. Trigger the native mobile/desktop browser download
-        const downloadUrl = `http://${window.location.hostname}:3001/api/file/${data.uuid}/${encodeURIComponent(data.filename)}`;
+        const downloadUrl = `${apiBase}/api/file/${data.uuid}/${encodeURIComponent(data.filename)}`;
 
         const a = document.createElement('a');
         a.href = downloadUrl;
@@ -281,7 +283,7 @@ function App() {
     if (typeof window === 'undefined') return isMobile ? 1800 : 2800;
     const w = window.innerWidth;
     const h = window.innerHeight;
-    return Math.max(isMobile ? 1800 : 2800, Math.ceil(Math.max(w, h) / scale) + (isMobile ? 200 : 800));
+    return Math.max(isMobile ? 1400 : 2000, Math.ceil(Math.max(w, h) / scale));
   };
   const targetCol8Height = getDynamicTargetHeight();
 
@@ -293,7 +295,7 @@ function App() {
 
   return (
     <div className="app-layout">
-      <div className="diagonal-author">Made by Anthony Luong • Inspired by <a href="https://en.wikipedia.org/wiki/George_Tscherny" target="_blank" rel="noopener noreferrer" className="author-link">George Tscherny</a></div>
+      <div className="diagonal-author">Made by <a href="https://anthonyluong.com" target="_blank" rel="noopener noreferrer" className="author-link">Anthony Luong</a> • Inspired by <a href="https://en.wikipedia.org/wiki/George_Tscherny" target="_blank" rel="noopener noreferrer" className="author-link">George Tscherny</a></div>
       <div
         className="diagonal-brand"
         style={{
