@@ -2,8 +2,6 @@
 
 # Clip Grab
 
-> A mobile-first video downloader exploring motion, haptics, and playful interaction.
-
 **[View Live Demo](https://clipgrab.vercel.app)** • **[Portfolio](https://anthonyluong.com)**
 
 Clip Grab is a mobile-first video downloader for YouTube, TikTok, Instagram, and other supported platforms. It uses `yt-dlp` and `ffmpeg` for video extraction and processing, wrapped in a custom interface inspired by George Tscherny's 1972 *Servicio El Borincano de Pan Am* poster.
