@@ -307,10 +307,10 @@ function App() {
     const h = window.innerHeight;
     const maxDimension = Math.max(w, h);
     // The rotated column container is offset by -620px in CSS (left: -620px),
-    // so height must cover (maxDimension / scale) + 620px + 100px to reach 100px past screen edge.
+    // so height covers (maxDimension / scale) + 620px to reach the exact edge of the screen.
     return isMobile 
-      ? Math.max(1800, Math.ceil((maxDimension / scale) + 720))
-      : Math.max(2800, Math.ceil((maxDimension / scale) + 720));
+      ? Math.max(1800, Math.ceil((maxDimension / scale) + 620))
+      : Math.max(2800, Math.ceil((maxDimension / scale) + 620));
   };
   const targetCol8Height = getDynamicTargetHeight();
 
