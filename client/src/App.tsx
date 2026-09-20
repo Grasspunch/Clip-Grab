@@ -302,10 +302,15 @@ function App() {
 
   const baseCol8Height = 1100;
   const getDynamicTargetHeight = () => {
-    if (typeof window === 'undefined') return isMobile ? 1800 : 2800;
+    if (typeof window === 'undefined') return isMobile ? 1800 : 3000;
     const w = window.innerWidth;
     const h = window.innerHeight;
-    return Math.max(isMobile ? 1400 : 2000, Math.ceil(Math.max(w, h) / scale));
+    const maxDimension = Math.max(w, h);
+    // The rotated column container is offset by -620px in CSS (left: -620px),
+    // so height must cover (maxDimension / scale) + 620px + 100px to reach 100px past screen edge.
+    return isMobile 
+      ? Math.max(1800, Math.ceil((maxDimension / scale) + 720))
+      : Math.max(2800, Math.ceil((maxDimension / scale) + 720));
   };
   const targetCol8Height = getDynamicTargetHeight();
 
