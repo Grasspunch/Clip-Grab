@@ -264,15 +264,24 @@ function App() {
         setMessage(`Error: ${data.error}`);
       }
     } catch (err) {
-      // In Demo mode (e.g. deployed without backend), run full 100% progress animation then prompt to download via GitHub
-      setPercentage(100);
+      // In Demo mode, simulate a full realistic 8-second loading progression before showing the GitHub modal
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+
+      const steps = [0, 6, 14, 23, 33, 44, 54, 63, 72, 80, 87, 93, 97, 99, 100];
+      for (const pct of steps) {
+        setPercentage(pct);
+        await new Promise((resolve) => setTimeout(resolve, 420));
+      }
+
       try {
         trigger([
           { duration: 80, intensity: 0.8 },
           { delay: 80, duration: 50, intensity: 0.3 },
         ]);
       } catch (hapticErr) {}
-      await new Promise((resolve) => setTimeout(resolve, 800));
+
+      // Hold at 100% so the user sees the column fully reach the top before opening the modal
+      await new Promise((resolve) => setTimeout(resolve, 920));
       setShowGithubModal(true);
       setUrl('');
       setVideoTitle('');
