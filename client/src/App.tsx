@@ -264,13 +264,30 @@ function App() {
         setMessage(`Error: ${data.error}`);
       }
     } catch (err) {
-      // In Demo mode, simulate a full realistic 8-second loading progression before showing the GitHub modal
+      // In Demo mode, simulate an 8-second loading progression where the final push to 100% accelerates in a fast burst
       await new Promise((resolve) => setTimeout(resolve, 1200));
 
-      const steps = [0, 6, 14, 23, 33, 44, 54, 63, 72, 80, 87, 93, 97, 99, 100];
-      for (const pct of steps) {
-        setPercentage(pct);
-        await new Promise((resolve) => setTimeout(resolve, 420));
+      const steps = [
+        { pct: 0, delay: 480 },
+        { pct: 6, delay: 480 },
+        { pct: 14, delay: 480 },
+        { pct: 23, delay: 480 },
+        { pct: 33, delay: 480 },
+        { pct: 44, delay: 480 },
+        { pct: 54, delay: 480 },
+        { pct: 63, delay: 480 },
+        { pct: 72, delay: 400 },
+        { pct: 80, delay: 300 },
+        { pct: 87, delay: 200 },
+        { pct: 93, delay: 130 },
+        { pct: 97, delay: 100 },
+        { pct: 99, delay: 80 },
+        { pct: 100, delay: 80 },
+      ];
+
+      for (const step of steps) {
+        setPercentage(step.pct);
+        await new Promise((resolve) => setTimeout(resolve, step.delay));
       }
 
       try {
