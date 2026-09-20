@@ -28,6 +28,8 @@ function App() {
     "Paste X"
   ];
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [showGithubModal, setShowGithubModal] = useState(true);
+  const githubUrl = import.meta.env.VITE_GITHUB_URL || "https://github.com/anthonyluong/clip-grab";
 
   // Rotate input placeholder when the input is empty and not focused
   useEffect(() => {
@@ -262,7 +264,18 @@ function App() {
         setMessage(`Error: ${data.error}`);
       }
     } catch (err) {
-      setMessage('Failed to connect to the local server. Make sure the backend is running.');
+      // In Demo mode (e.g. deployed without backend), run full 100% progress animation then prompt to download via GitHub
+      setPercentage(100);
+      try {
+        trigger([
+          { duration: 80, intensity: 0.8 },
+          { delay: 80, duration: 50, intensity: 0.3 },
+        ]);
+      } catch (hapticErr) {}
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      setShowGithubModal(true);
+      setUrl('');
+      setVideoTitle('');
     } finally {
       setLoading(false);
     }
@@ -402,9 +415,36 @@ function App() {
           <div className="column col-13"></div>
           <div className="column col-14"></div>
           <div className="column col-15"></div>
-          <div className="column col-16"></div>
         </div>
       </div>
+
+      {showGithubModal && (
+        <div className="demo-modal-overlay" onClick={() => setShowGithubModal(false)}>
+          <div className="demo-modal-card" onClick={(e) => e.stopPropagation()}>
+            <h2 className="demo-modal-title">Thanks for trying! 🙂</h2>
+            <p className="demo-modal-desc">
+              High-resolution downloads require the full app. View the source and setup on GitHub.
+            </p>
+            <div className="demo-modal-actions">
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="demo-modal-btn primary"
+              >
+                View on GitHub
+              </a>
+              <button
+                type="button"
+                className="demo-modal-btn secondary"
+                onClick={() => setShowGithubModal(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
