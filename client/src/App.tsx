@@ -28,7 +28,7 @@ function App() {
     "Paste X"
   ];
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
-  const [showGithubModal, setShowGithubModal] = useState(true);
+  const [showGithubModal, setShowGithubModal] = useState(false);
   const githubUrl = import.meta.env.VITE_GITHUB_URL || "https://github.com/anthonyluong/clip-grab";
 
   // Rotate input placeholder when the input is empty and not focused
