@@ -25,7 +25,7 @@ Install Node.js 18+, `yt-dlp`, and `ffmpeg`.
 
 ```bash
 brew install yt-dlp ffmpeg
-git clone https://github.com/anthonyluong/clip-grab.git
+git clone https://github.com/Grasspunch/Clip-Grab.git
 cd clip-grab
 npm run install:all
 npm run dev

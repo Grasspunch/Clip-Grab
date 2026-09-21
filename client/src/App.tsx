@@ -29,7 +29,7 @@ function App() {
   ];
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [showGithubModal, setShowGithubModal] = useState(false);
-  const githubUrl = import.meta.env.VITE_GITHUB_URL || "https://github.com/anthonyluong/clip-grab";
+  const githubUrl = import.meta.env.VITE_GITHUB_URL || "https://github.com/Grasspunch/Clip-Grab";
 
   // Rotate input placeholder when the input is empty and not focused
   useEffect(() => {
@@ -454,7 +454,7 @@ function App() {
           <div className="demo-modal-card" onClick={(e) => e.stopPropagation()}>
             <h2 className="demo-modal-title">Thanks for trying! 🙂</h2>
             <p className="demo-modal-desc">
-              High-resolution downloads require the full app. View the source and setup on GitHub.
+              High-resolution downloads require running the app locally. Open source on GitHub under the MIT License.
             </p>
             <div className="demo-modal-actions">
               <a
