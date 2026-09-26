@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ClipGrab Iframe Test Preview</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 40px 20px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: #0d0d0d;
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .container {
+        width: 100%;
+        max-width: 900px;
+      }
+      header {
+        margin-bottom: 24px;
+        text-align: center;
+      }
+      h1 {
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0 0 8px 0;
+      }
+      p {
+        color: #888888;
+        font-size: 14px;
+        margin: 0;
+      }
+      .iframe-wrapper {
+        width: 100%;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #222222;
+        background: #000000;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
+      iframe {
+        width: 100%;
+        height: 650px;
+        border: none;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>ClipGrab Embed Test Page</h1>
+        <p>Previewing the ClipGrab app inside an iframe container with dynamic height listening.</p>
+      </header>
+
+      <div class="iframe-wrapper">
+        <iframe
+          id="clipgrab-iframe"
+          src="/"
+          allow="autoplay; clipboard-write; encrypted-media"
+        ></iframe>
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'CLIPGRAB_RESIZE') {
+          const iframe = document.getElementById('clipgrab-iframe');
+          if (iframe && event.data.height) {
+            iframe.style.height = event.data.height + 'px';
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

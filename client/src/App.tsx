@@ -73,6 +73,22 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Dispatch postMessage height for iframe embedding support
+  useEffect(() => {
+    if (window.parent === window) return; // Not inside an iframe
+
+    const sendHeight = () => {
+      const height = document.body.scrollHeight || document.documentElement.scrollHeight;
+      window.parent.postMessage({ type: 'CLIPGRAB_RESIZE', height }, '*');
+    };
+
+    const resizeObserver = new ResizeObserver(() => sendHeight());
+    resizeObserver.observe(document.body);
+    sendHeight();
+
+    return () => resizeObserver.disconnect();
+  }, []);
+
   // Force scrollLeft back to 0 so pasted URLs never visually hide the start "https://"
   useEffect(() => {
     if (inputRef.current) {
