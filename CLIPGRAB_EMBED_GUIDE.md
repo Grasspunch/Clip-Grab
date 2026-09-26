@@ -6,8 +6,8 @@ This guide details how to embed the **ClipGrab** video downloader component into
 
 ## Embed URL & Basic Usage
 
-- **Embed Route**: `/embed` or `/`
-- **Example URL**: `https://clipgrabapp.vercel.app/embed`
+- **Embed Route**: `/`
+- **Example URL**: `https://clipgrabapp.vercel.app/`
 
 ### Standard HTML Embed Snippet
 
@@ -16,7 +16,7 @@ Paste the following `<iframe>` tag into your portfolio HTML or case study contai
 ```html
 <iframe 
   id="clipgrab-iframe"
-  src="https://clipgrabapp.vercel.app/embed" 
+  src="https://clipgrabapp.vercel.app/" 
   width="100%" 
   height="600px" 
   frameborder="0" 
@@ -61,11 +61,11 @@ On your portfolio website (where you embed the iframe), add this small JavaScrip
 Customize the embed appearance and default states by adding query parameters to the iframe `src` URL.
 
 ### 1. Dark / Light Theme (`theme=dark` or `theme=light`)
-- **URL**: `https://clipgrabapp.vercel.app/embed?theme=dark`
+- **URL**: `https://clipgrabapp.vercel.app/?theme=dark`
 - **Effect**: Customizes background colors to match dark portfolio themes.
 
 ### 2. Compact Mode (`compact=true`)
-- **URL**: `https://clipgrabapp.vercel.app/embed?compact=true`
+- **URL**: `https://clipgrabapp.vercel.app/?compact=true`
 - **Effect**: Scales down container height and padding for tight portfolio grid columns or embedded cards.
 
 ### Combined Options Example
@@ -73,7 +73,7 @@ Customize the embed appearance and default states by adding query parameters to 
 ```html
 <iframe 
   id="clipgrab-iframe"
-  src="https://clipgrabapp.vercel.app/embed?compact=true&theme=dark" 
+  src="https://clipgrabapp.vercel.app/?compact=true&theme=dark" 
   width="100%" 
   height="500px" 
   frameborder="0" 
