@@ -16,6 +16,8 @@ function App() {
   const [flyingText, setFlyingText] = useState('');
   const [flyingTextLaunched, setFlyingTextLaunched] = useState(false);
   const [videoTitle, setVideoTitle] = useState('');
+  const [downloadError, setDownloadError] = useState(false);
+  const [runLocallyState, setRunLocallyState] = useState(false);
 
   const placeholders = [
     "Paste URL",
@@ -141,6 +143,7 @@ function App() {
 
   // Validate URL to toggle download button color/activation (restrict to accepted video platforms like YouTube, TikTok, Instagram, Vimeo, Twitch, and Twitter/X)
   const isValidUrl = /^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.be|tiktok\.com|instagram\.com|vimeo\.com|twitch\.tv|twitter\.com|x\.com)\/.+$/i.test(url);
+  const isEffectiveValid = isValidUrl && !downloadError;
 
   // Fetch video title metadata automatically when valid URL is entered
   useEffect(() => {
@@ -278,6 +281,7 @@ function App() {
         setVideoTitle('');
       } else {
         setMessage(`Error: ${data.error}`);
+        setDownloadError(true);
       }
     } catch (err) {
       // In Demo mode, simulate an 8-second loading progression where the final push to 100% accelerates in a fast burst
@@ -313,11 +317,10 @@ function App() {
         ]);
       } catch (hapticErr) {}
 
-      // Hold at 100% so the user sees the column fully reach the top before opening the modal
+      // Hold at 100% so the user sees the column fully reach the top before revealing text
       await new Promise((resolve) => setTimeout(resolve, 920));
-      setShowGithubModal(true);
-      setUrl('');
-      setVideoTitle('');
+      setPercentage(null);
+      setRunLocallyState(true);
     } finally {
       setLoading(false);
     }
@@ -372,11 +375,15 @@ function App() {
           <div className="column col-5"></div>
           <form onSubmit={handleDownload} style={{ display: 'contents' }}>
             <div
-              className={`column col-8 ${loading && percentage === null ? 'spring-launch' : ''} ${isValidUrl && !loading ? 'clickable-row' : ''}`}
+              className={`column col-8 ${loading && percentage === null ? 'spring-launch' : ''} ${(isEffectiveValid || runLocallyState) && !loading ? 'clickable-row' : ''}`}
               style={{ height: `${dynamicCol8Height}px` }}
               onClick={(e) => {
+                if (runLocallyState) {
+                  window.open(githubUrl, '_blank');
+                  return;
+                }
                 // If clicked directly on the column and not on the button, trigger the button's click event
-                if (e.target instanceof Element && !e.target.closest('button') && isValidUrl && !loading) {
+                if (e.target instanceof Element && !e.target.closest('button') && isEffectiveValid && !loading) {
                   const btn = e.currentTarget.querySelector('button[type="submit"]') as HTMLButtonElement | null;
                   if (btn && !btn.disabled) {
                     btn.click();
@@ -390,12 +397,23 @@ function App() {
                 </div>
               )}
               <button
-                type="submit"
-                className={`diagonal-download-btn ${loading ? 'launched' : ''} ${isValidUrl ? 'valid-active' : ''} ${url && !isValidUrl ? 'invalid-active' : ''}`}
-                disabled={!isValidUrl}
+                type={runLocallyState ? "button" : "submit"}
+                className={`diagonal-download-btn ${loading ? 'launched' : ''} ${runLocallyState ? 'run-locally-active' : isEffectiveValid ? 'valid-active' : ''} ${url && !isEffectiveValid && !runLocallyState ? 'invalid-active' : ''}`}
+                disabled={!isEffectiveValid && !runLocallyState}
+                onClick={(e) => {
+                  if (runLocallyState) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.open(githubUrl, '_blank');
+                  }
+                }}
               >
-                <span key={url && !isValidUrl ? 'invalid' : 'valid'} className="download-text-label">{url && !isValidUrl ? 'Invalid' : 'Save'}</span>
-                <span className={isValidUrl ? "download-dot active-blink" : "download-dot"}>●</span>
+                <span key={runLocallyState ? 'run-locally' : (url && !isEffectiveValid ? 'invalid' : 'valid')} className="download-text-label">
+                  {runLocallyState ? 'Run locally for downloads.' : (url && !isEffectiveValid ? 'Invalid' : 'Save')}
+                </span>
+                {!runLocallyState && (
+                  <span className={isEffectiveValid ? "download-dot active-blink" : "download-dot"}>●</span>
+                )}
               </button>
             </div>
             <div
@@ -425,6 +443,8 @@ function App() {
                   onChange={(e) => {
                     const cleanedVal = e.target.value.replace(/^(https?:\/\/)?(www\.)?/, '');
                     setUrl(cleanedVal);
+                    if (downloadError) setDownloadError(false);
+                    if (runLocallyState) setRunLocallyState(false);
                   }}
                   onFocus={() => setIsFocused(true)}
                   onBlur={() => setIsFocused(false)}
@@ -464,34 +484,6 @@ function App() {
           <div className="column col-15"></div>
         </div>
       </div>
-
-      {showGithubModal && (
-        <div className="demo-modal-overlay" onClick={() => setShowGithubModal(false)}>
-          <div className="demo-modal-card" onClick={(e) => e.stopPropagation()}>
-            <h2 className="demo-modal-title">Thanks for trying! 🙂</h2>
-            <p className="demo-modal-desc">
-              High-resolution downloads require running the app locally. Open source on GitHub under the MIT License.
-            </p>
-            <div className="demo-modal-actions">
-              <a
-                href={githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="demo-modal-btn primary"
-              >
-                View on GitHub
-              </a>
-              <button
-                type="button"
-                className="demo-modal-btn secondary"
-                onClick={() => setShowGithubModal(false)}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
