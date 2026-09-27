@@ -18,6 +18,9 @@ function App() {
   const [videoTitle, setVideoTitle] = useState('');
   const [downloadError, setDownloadError] = useState(false);
   const [runLocallyState, setRunLocallyState] = useState(false);
+  const [splashActive, setSplashActive] = useState(true);
+  const dotRef = useRef<HTMLSpanElement>(null);
+  const [dotCoords, setDotCoords] = useState<{ x: number; y: number } | null>(null);
 
   const placeholders = [
     "Paste URL",
@@ -72,6 +75,38 @@ function App() {
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Measure dot position for initial splash collapse transition
+  useEffect(() => {
+    const updateDotPosition = () => {
+      if (dotRef.current) {
+        const rect = dotRef.current.getBoundingClientRect();
+        setDotCoords({
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2
+        });
+      }
+    };
+
+    // Ensure layout and scale styles are fully rendered before calculating coordinates
+    const r1 = requestAnimationFrame(() => {
+      const r2 = requestAnimationFrame(() => {
+        updateDotPosition();
+      });
+      return () => cancelAnimationFrame(r2);
+    });
+
+    window.addEventListener('resize', updateDotPosition);
+    const timer = setTimeout(() => {
+      setSplashActive(false);
+    }, 1800);
+
+    return () => {
+      cancelAnimationFrame(r1);
+      window.removeEventListener('resize', updateDotPosition);
+      clearTimeout(timer);
+    };
   }, []);
 
   // Dispatch postMessage height for iframe embedding support
@@ -410,7 +445,7 @@ function App() {
                 <span key={runLocallyState ? 'run-locally' : (url && !isEffectiveValid ? 'invalid' : 'valid')} className="download-text-label">
                   {runLocallyState ? 'Run locally for downloads' : (url && !isEffectiveValid ? 'Invalid' : 'Save')}
                 </span>
-                <span className={isEffectiveValid || runLocallyState ? "download-dot active-blink" : "download-dot"}>●</span>
+                <span ref={dotRef} className={isEffectiveValid || runLocallyState ? "download-dot active-blink" : "download-dot"}>●</span>
               </button>
             </div>
             <div
@@ -481,6 +516,15 @@ function App() {
           <div className="column col-15"></div>
         </div>
       </div>
+      {splashActive && (
+        <div
+          className="splash-screen"
+          style={{
+            '--dot-x': dotCoords ? `${dotCoords.x}px` : '50%',
+            '--dot-y': dotCoords ? `${dotCoords.y}px` : '50%'
+          } as React.CSSProperties}
+        />
+      )}
     </div>
   );
 }

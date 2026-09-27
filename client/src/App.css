@@ -1216,3 +1216,32 @@ button:disabled {
     font-size: 0.85rem;
   }
 }
+
+/* Splash Screen Overlay & Circular Hole Shrink Animation */
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  z-index: 999999;
+  pointer-events: none;
+  clip-path: circle(150vmax at var(--dot-x, 50%) var(--dot-y, 50%));
+  animation: splashCircleShrink 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes splashCircleShrink {
+  0% {
+    clip-path: circle(150vmax at var(--dot-x, 50%) var(--dot-y, 50%));
+    opacity: 1;
+  }
+  85% {
+    clip-path: circle(6px at var(--dot-x, 50%) var(--dot-y, 50%));
+    opacity: 1;
+  }
+  100% {
+    clip-path: circle(0px at var(--dot-x, 50%) var(--dot-y, 50%));
+    opacity: 0;
+  }
+}
