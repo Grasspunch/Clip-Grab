@@ -454,6 +454,14 @@ button:disabled {
   transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), margin-right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.diagonal-download-btn.run-locally-active .download-text-label {
+  opacity: 1;
+  max-width: 1000px;
+  margin-right: 0;
+  color: inherit !important;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .diagonal-download-btn.invalid-active .download-text-label {
   opacity: 1;
   max-width: 300px;
