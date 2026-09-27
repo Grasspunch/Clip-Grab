@@ -334,6 +334,10 @@ button:disabled {
   transition: color 0.2s ease, bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.diagonal-download-btn.run-locally-active .download-dot {
+  color: rgba(0, 0, 0, 0.35) !important;
+}
+
 .diagonal-download-btn.run-locally-active:hover,
 .column.col-8.clickable-row:hover .diagonal-download-btn.run-locally-active,
 .diagonal-download-btn.run-locally-active:hover .download-dot,
@@ -764,15 +768,15 @@ button:disabled {
 
 .diagonal-author {
   position: fixed;
-  bottom: 18px;
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
   font-family: 'Inter', -apple-system, sans-serif;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.35);
   /* Soft, premium grey background blend */
-  letter-spacing: -0.4px;
+  letter-spacing: -0.3px;
   /* Snugs letters closer together to match the brand layout system */
   z-index: 100;
   pointer-events: none;
@@ -781,8 +785,8 @@ button:disabled {
 
 @media (max-width: 480px) {
   .diagonal-author {
-    bottom: 10px;
-    font-size: 11px;
+    bottom: 8px;
+    font-size: 9px;
   }
 }
 
