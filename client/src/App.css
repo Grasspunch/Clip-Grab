@@ -327,7 +327,7 @@ button:disabled {
 }
 
 .diagonal-download-btn.run-locally-active {
-  bottom: -205px;
+  bottom: -580px;
   color: rgba(0, 0, 0, 0.35) !important;
   cursor: pointer;
   pointer-events: auto !important;
@@ -335,7 +335,9 @@ button:disabled {
 }
 
 .diagonal-download-btn.run-locally-active:hover,
-.column.col-8.clickable-row:hover .diagonal-download-btn.run-locally-active {
+.column.col-8.clickable-row:hover .diagonal-download-btn.run-locally-active,
+.diagonal-download-btn.run-locally-active:hover .download-dot,
+.column.col-8.clickable-row:hover .diagonal-download-btn.run-locally-active .download-dot {
   color: #ef476f !important;
 }
 
@@ -457,9 +459,9 @@ button:disabled {
 .diagonal-download-btn.run-locally-active .download-text-label {
   opacity: 1;
   max-width: 1000px;
-  margin-right: 0;
+  margin-right: 12px;
   color: inherit !important;
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), margin-right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .diagonal-download-btn.invalid-active .download-text-label {
@@ -709,10 +711,13 @@ button:disabled {
     /* Shifted 15px away from the red column */
   }
 
-  .diagonal-download-btn.valid-active:not(.launched),
-  .diagonal-download-btn.run-locally-active:not(.launched) {
+  .diagonal-download-btn.valid-active:not(.launched) {
     bottom: -180px !important;
     /* Shifted 15px away from the red column */
+  }
+
+  .diagonal-download-btn.run-locally-active:not(.launched) {
+    bottom: -440px !important;
   }
 
   .diagonal-download-btn.invalid-active:not(.launched) {

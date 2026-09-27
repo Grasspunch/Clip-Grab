@@ -408,11 +408,9 @@ function App() {
                 }}
               >
                 <span key={runLocallyState ? 'run-locally' : (url && !isEffectiveValid ? 'invalid' : 'valid')} className="download-text-label">
-                  {runLocallyState ? 'Run locally for downloads.' : (url && !isEffectiveValid ? 'Invalid' : 'Save')}
+                  {runLocallyState ? 'Run locally for downloads' : (url && !isEffectiveValid ? 'Invalid' : 'Save')}
                 </span>
-                {!runLocallyState && (
-                  <span className={isEffectiveValid ? "download-dot active-blink" : "download-dot"}>●</span>
-                )}
+                <span className={isEffectiveValid || runLocallyState ? "download-dot active-blink" : "download-dot"}>●</span>
               </button>
             </div>
             <div
